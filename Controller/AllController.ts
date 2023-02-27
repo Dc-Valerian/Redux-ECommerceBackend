@@ -105,4 +105,32 @@ router.post("/createProduct",async(req:Request,res:Response)=>{
     }
 })
 
+// TO GET A SINGLE PRODUCT
+// router.patch(
+// 	"/purchaseProduct/:productID",
+// 	async (req: Request, res: Response) => {
+// 		try {
+// 			const { quantity } = req.body;
+
+// 			// const getUser = await UserModel.findById(req.params.userID);
+// 			const getProducts = await ProductsModel.findById(req.params.productID);
+
+// 			if (getProducts!.quantity == 0) {
+// 				await ProductsModel.findByIdAndUpdate(getProducts!._id!, {
+// 					status: false,
+// 				});
+// 			} else {
+// 				await ProductsModel.findByIdAndUpdate(getProducts!._id!, {
+// 					quantity: getProducts?.quantity! - qty,
+// 				});
+// 			}
+// 		} catch (err) {
+// 			res.status(404).json({
+// 				message: "an error occured",
+// 			});
+// 		}
+// 	},
+// );
+
+
 export default router;
