@@ -80,4 +80,29 @@ router.post("/login",async(req:Request,res:Response)=>{
     }
 })
 
+// TO CREATE POST
+router.post("/createProduct",async(req:Request,res:Response)=>{
+    try {
+        const {title,desc,price,category,quantity} = req.body;
+
+        const  data = await ProductsModel.create({
+            title,
+            desc,
+            price,
+            category,
+            quantity,
+            status:true
+        })
+        return res.status(200).json({
+            message:`Successfully Create Product`,
+            data:data
+        })
+    } catch (error) {
+        res.status(404).json({
+			message: "an error occured {couldn't create product}",
+            error
+		});
+    }
+})
+
 export default router;

@@ -4,6 +4,8 @@ import mongoose from "mongoose"
 import AllRoutes from "./Controller/AllController"
 
 
+
+
 const PORT:number = 3020;
 
 const url ="mongodb://0.0.0.0:27017/EcommercePractice"
