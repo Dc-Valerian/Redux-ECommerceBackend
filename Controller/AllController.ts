@@ -56,5 +56,28 @@ router.post("/register",async(req:Request,res:Response)=>{
 })
 
 
+// TO LOGIN
+router.post("/login",async(req:Request,res:Response)=>{
+    try {
+        const {name,email} = req.body;
+
+        const data = await UserModel.findOne({email:email})
+
+        if(data){
+            return res.status(200).json({
+                message:`${data.name},you have successfully login`,
+                data:data
+            })
+        }else{
+            return res.status(200).json({
+				message: "user not found",
+			});
+        }
+    } catch (error) {
+        res.status(404).json({
+			message: "an error occured",
+		});
+    }
+})
 
 export default router;
