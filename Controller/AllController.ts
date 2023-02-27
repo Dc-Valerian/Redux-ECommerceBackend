@@ -12,7 +12,8 @@ router.get("/users",async(req:Request,res:Response)=>{
     try {
         const data = await UserModel.find()
         return res.status(200).json({
-            message:`Successfully Got all ${data.length} Users`
+            message:`Successfully Got all ${data.length} Users`,
+            data:data
         })
         
     } catch (error) {
@@ -27,23 +28,33 @@ router.get("/users",async(req:Request,res:Response)=>{
 router.post("/register",async(req:Request,res:Response)=>{
     try {
         const {name,email,password} = req.body;
-        const salt = await bcrypt.genSalt(10)
-        const hash = bcrypt.hash(password,salt)
+     
+        const salt: string = await bcrypt.genSalt(12);
+        const hashed: string = await bcrypt.hash(password, salt);
 
         const data = await UserModel.create({
             name,
             email,
-            password:hash,
+            password:hashed,
+            isAdmin:false
         });
         return res.status(200).json({
 			message:`Successfully Regsitered ${data.name}`,
 			data: data,
+            token: jwt.sign(
+				{ _id: data._id },
+				"Ths-57aenrn-53q4yhnae-05q3ujn",
+				{ expiresIn: "1d" },
+			),
         });
     } catch (error) {
         res.status(404).json({
-			message: "an error occured",
+			message: "an error occured{couldn't register user}",
+            error
 		});
     }
 })
+
+
 
 export default router;
