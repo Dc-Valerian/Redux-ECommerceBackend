@@ -1,26 +1,20 @@
-import express, { Application } from "express"
-import cors from "cors"
-import mongoose from "mongoose"
-import AllRoutes from "./Controller/AllController"
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import AllRoute from "./Controller/AllController";
+const port = 4573;
+const url = "mongodb://localhost/set07Ecomerce";
+const app = express();
+app.use(express.json());
+app.use(cors());
 
+mongoose.connect(url).then(() => {
+	console.log("Database Connection Established");
+});
 
+app.use("/api", AllRoute);
 
-
-const PORT:number = 3020;
-
-const url ="mongodb://0.0.0.0:27017/EcommercePractice"
-
-const app:Application = express()
-
-app.use(express.json())
-app.use(cors())
-
-mongoose.connect(url).then(()=>{
-    console.log("DataBase is Connected")
-})
-
-app.use("/api",AllRoutes)
-
-app.listen(PORT,()=>{
-    console.log(`Listening to Port: ${PORT}`);
-})
+app.listen(port, () => {
+	console.log("")
+	console.log("listening on port", port);
+});
